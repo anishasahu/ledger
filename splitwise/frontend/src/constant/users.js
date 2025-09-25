@@ -1,0 +1,1 @@
+export const USERS = ["Alice", "Bob", "Charlie", "Diana", "Eve"];
