@@ -75,6 +75,10 @@ header.topbar {
   color: #fff;
   box-shadow: var(--shadow-sm);
   backdrop-filter: blur(8px);
+  display: flex;              /* make header a flex container */
+  flex-direction: column;     /* stack brand and nav vertically */
+  align-items: center;        /* center horizontally */
+  text-align: center;  
 }
 header.topbar .topbar-content {
   max-width: var(--container);
@@ -86,15 +90,24 @@ header.topbar .topbar-content {
   gap: var(--space-4);
 }
 header.topbar .brand {
-  font-size: 1.4rem;
+  font-size: 2.5rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   display: flex;
   align-items: center;
   gap: .55rem;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 header.topbar nav {
   display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  justify-content: center;    /* keep page names centered */
   gap: .75rem;
   flex-wrap: wrap;
 }
@@ -111,6 +124,22 @@ header.topbar nav a:hover {
   color: #fff;
   transform: translateY(-2px);
 }
+header.topbar .topbar-content {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: .65rem;
+  padding: 1.1rem var(--space-4) 1.25rem;
+}
+
+header.topbar nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;   /* center the page names */
+  gap: .75rem;
+  flex-wrap: wrap;
+}
 
 /* ---------- Main ---------- */
 .main {
@@ -126,7 +155,7 @@ header.topbar nav a:hover {
    Home Page
 ========================================================= */
 .home-title {
-  font-size: clamp(3.5rem, 8vw, 5rem);
+  font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 900;
   text-align: center;
   line-height: 1.05;
@@ -454,6 +483,53 @@ footer.footer {
 @keyframes fadeIn {
   from { opacity:0; transform: translateY(14px); }
   to { opacity:1; transform: translateY(0); }
+}
+
+/* Toasts */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;            /* “side of the page” */
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  z-index: 9999;
+  pointer-events: none;   /* clicks pass through except buttons */
+}
+.toast {
+  --ring: rgba(0,0,0,.06);
+  display: grid;
+  grid-template-columns: 6px 1fr auto;
+  align-items: center;
+  gap: .75rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: .75rem .9rem;
+  min-width: 280px;
+  max-width: 360px;
+  transform: translateX(12px);
+  opacity: 0;
+  animation: toast-in .28s ease forwards;
+  pointer-events: auto;
+}
+.toast__bar { width: 6px; height: 100%; border-radius: 6px; }
+.toast__body { font-weight: 600; }
+.toast__close {
+  appearance: none; border: 0; background: transparent; color: var(--text-muted);
+  font-size: 1.1rem; padding: .2rem .35rem; cursor: pointer; border-radius: 6px;
+}
+.toast__close:hover { background: var(--surface-alt); color: var(--text); }
+
+.toast--success .toast__bar { background: #10b981; }
+.toast--error   .toast__bar { background: #ef4444; }
+.toast--info    .toast__bar { background: var(--primary); }
+
+@keyframes toast-in {
+  from { transform: translateX(16px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
 }
 
 /* ---------- Focus Accessibility ---------- */
